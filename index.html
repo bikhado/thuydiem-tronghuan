@@ -3571,16 +3571,63 @@
         <div class="loading-text">Chờ chút bạn iuuuuuu...</div>
     </div>
     <script>
-        // Hide loader when the page finishes loading all assets (images, fonts, etc.)
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                var loader = document.getElementById('global-loader');
-                if (loader) {
+        // Advanced Asset Preloader: extracts all images and waits for them to physically load
+        document.addEventListener('DOMContentLoaded', function() {
+            var loader = document.getElementById('global-loader');
+            if (!loader) return;
+            
+            var imageUrls = new Set();
+            
+            // Extract from <img>, style="background-image: url(...)" and <link as="image">
+            document.querySelectorAll('img, [style*="url("], link[as="image"]').forEach(function(el) {
+                var tag = el.tagName.toLowerCase();
+                if (tag === 'img' && el.src && !el.src.startsWith('data:')) {
+                    imageUrls.add(el.src);
+                } else if (tag === 'link' && el.href) {
+                    imageUrls.add(el.href);
+                } else if (el.hasAttribute('style')) {
+                    var styleStr = el.getAttribute('style');
+                    var matches = styleStr.match(/url\(['"]?(.*?)['"]?\)/g);
+                    if (matches) {
+                        matches.forEach(function(m) {
+                            var extract = m.match(/url\(['"]?(.*?)['"]?\)/);
+                            if (extract && extract[1] && !extract[1].startsWith('data:')) {
+                                imageUrls.add(extract[1]);
+                            }
+                        });
+                    }
+                }
+            });
+
+            function hideLoader() {
+                setTimeout(function() {
                     loader.style.opacity = '0';
                     loader.style.visibility = 'hidden';
                     loader.style.pointerEvents = 'none';
-                }
-            }, 300); // Wait just a bit extra to ensure smooth visual transition
+                }, 300);
+            }
+
+            var totalImages = imageUrls.size;
+            var loadedImages = 0;
+            // Maximum 9 seconds waiting time to prevent infinite loading screen
+            var fallbackTimeout = setTimeout(hideLoader, 9000);
+
+            if (totalImages === 0) {
+                clearTimeout(fallbackTimeout);
+                hideLoader();
+            } else {
+                imageUrls.forEach(function(url) {
+                    var img = new Image();
+                    img.onload = img.onerror = function() {
+                        loadedImages++;
+                        if (loadedImages === totalImages) {
+                            clearTimeout(fallbackTimeout);
+                            hideLoader();
+                        }
+                    };
+                    img.src = url;
+                });
+            }
         });
     </script>
     
