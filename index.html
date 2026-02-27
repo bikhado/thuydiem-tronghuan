@@ -5018,11 +5018,23 @@
                     rootPage.style.transform = 'scale(' + scale + ')';
                     rootPage.style.width = canvasWidth + 'px';
 
-                    // Adjust the scroll container height to account for scaled content
+                    // The parent wrapper that holds rootPage needs a fixed height 
+                    // matching the scaled visual height so scrolling works
+                    var parentDiv = rootPage.parentElement; // the div wrapping root-page-container
+                    if (parentDiv) {
+                        var originalHeight = 8574; // hardcoded canvas height
+                        parentDiv.style.height = (originalHeight * scale) + 'px';
+                        parentDiv.style.width = screenWidth + 'px';
+                        parentDiv.style.overflow = 'visible';
+                    }
+
+                    // Make sure the scroll container can scroll
                     var scrollWrapper = document.querySelector('.styles_customScroll__X5r6w');
                     if (scrollWrapper) {
-                        var originalHeight = rootPage.offsetHeight || 8574;
-                        scrollWrapper.style.height = (originalHeight * scale) + 'px';
+                        scrollWrapper.style.height = '100%';
+                        scrollWrapper.style.overflowY = 'auto';
+                        scrollWrapper.style.overflowX = 'hidden';
+                        scrollWrapper.style.WebkitOverflowScrolling = 'touch';
                     }
                 } else {
                     rootPage.style.transform = '';
