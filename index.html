@@ -4578,13 +4578,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div data-node-id="uNAvnXCWU6" style="position:absolute;top:245.407px;left:100.05px;width:301px;height:auto;z-index:0;cursor:default;transform:rotate(0deg)" class="jsx-1828971989 text-box-component ">
+                                            <div data-node-id="uNAvnXCWU6" style="position:absolute;top:235px;left:50%;transform:translateX(-50%);width:auto;height:auto;z-index:2;cursor:pointer" class="jsx-1828971989 text-box-component " id="open-envelope-cta">
                                                 <div data-transition-key="uNAvnXCWU6-slide-up-1.3-0-ease-out-false" data-node-id="uNAvnXCWU6" style="transition:all 1.3s ease-out 0s;transform:translateY(50px);opacity:0;width:100%;height:100%">
-                                                    <div style="position:relative;width:100%;height:100%;padding:0px 0px 0px 0px;border-radius:0px 
-            0px 
-            0px 
-            0px;box-shadow:none;background-color:transparent;display:flex;align-items:center;justify-content:center;box-sizing:border-box;opacity:1;border:0px solid" class="jsx-1828971989">
-                                                        <div disabled="" style="height:auto;width:100%;min-width:20px;color:#000000;font-size:23px;text-shadow:0px 0px 2px rgba(0,0,0,0);font-weight:500;font-family:&quot;Dancing Script&quot;;text-align:center;line-height:normal;letter-spacing:0px;text-transform:none;text-decoration:none;font-style:normal;pointer-events:none;overflow:hidden;word-break:break-word" contenteditable="false">Chạm để mở thiệp</div>
+                                                    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                                                        <div style="color:#baa58a;font-size:14px;font-family:'Quicksand',sans-serif;font-weight:600;letter-spacing:3px;text-transform:uppercase;text-align:center;animation:ctaFade 2.5s ease-in-out infinite;">✉ Chạm để mở thiệp ✉</div>
+                                                        <div style="color:#baa58a;font-size:18px;animation:ctaBounce 1.5s ease-in-out infinite;">↓</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -4645,6 +4643,16 @@
                 }
                 .envelope-container.open {
                     animation: none !important;
+                }
+
+                /* CTA "Chạm để mở thiệp" animations */
+                @keyframes ctaFade {
+                    0%, 100% { opacity: 0.5; }
+                    50% { opacity: 1; text-shadow: 0 0 8px rgba(186, 165, 138, 0.4); }
+                }
+                @keyframes ctaBounce {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(6px); }
                 }
 
                 /* ===== SCROLL REVEAL ANIMATIONS ===== */
@@ -4942,6 +4950,14 @@
                         // Unlock scroll
                         if (!envelopeOpened) {
                             envelopeOpened = true;
+
+                            // Fade out CTA text
+                            var ctaEl = document.getElementById('open-envelope-cta');
+                            if (ctaEl) {
+                                ctaEl.style.transition = 'opacity 0.8s ease';
+                                ctaEl.style.opacity = '0';
+                                setTimeout(function() { ctaEl.style.display = 'none'; }, 800);
+                            }
                             setTimeout(() => {
                                 window.removeEventListener('wheel', preventScroll);
                                 window.removeEventListener('touchmove', preventScroll);
