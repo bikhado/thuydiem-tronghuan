@@ -3466,12 +3466,14 @@
             transform: rotate(180deg);
         }
 
-        /* On mobile: full screen, no card frame */
+        /* On mobile: full screen, no card frame, scale 500px content to fit */
         @media (max-width: 768px) {
             .pc-container {
                 background: none !important;
                 padding: 0 !important;
                 height: 100vh !important;
+                width: 100vw !important;
+                overflow: hidden !important;
             }
             .pc-content {
                 max-width: 100% !important;
@@ -3480,10 +3482,21 @@
                 border-radius: 0 !important;
                 border: none !important;
                 box-shadow: none !important;
+                overflow: hidden !important;
             }
             .pc-content::before,
             .pc-content::after {
                 display: none;
+            }
+
+            /* Scale the 500px-wide internal canvas to fit the phone screen */
+            .styles_customScroll__X5r6w {
+                overflow-x: hidden !important;
+            }
+            #root-page-container {
+                transform-origin: top left;
+                transform: scale(calc(100vw / 500));
+                width: 500px !important;
             }
         }
 
