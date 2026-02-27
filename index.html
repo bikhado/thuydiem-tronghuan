@@ -4453,9 +4453,12 @@
                                             </div>
                                             <!-- Hidden until envelope is opened -->
                                             <div id="post-envelope-content" style="opacity:0;pointer-events:none;transition:opacity 1.2s ease-in-out;">
-                                            <div data-node-id="MottbHWQBx" style="position:absolute;top:640px;left:0;width:500px;height:auto;z-index:0;cursor:default" class="jsx-1828971989 text-box-component ">
-                                                <div data-transition-key="MottbHWQBx-slide-up-1.3-0-ease-out-false" data-node-id="MottbHWQBx" style="transition:all 1.3s ease-out 0s;transform:translateY(50px);opacity:0;width:100%;height:100%">
-                                                        <div disabled="" style="height:auto;width:100%;color:#5d4b46;font-size:22px;font-weight:500;font-family:&quot;Dancing Script&quot;;text-align:center;line-height:normal;letter-spacing:2px;font-style:italic;pointer-events:none" contenteditable="false">TRÂN TRỌNG KÍNH MỜI</div>
+                                            <!-- Grey gradient banner + centered text in a single block -->
+                                            <div data-node-id="MottbHWQBx" style="position:absolute;top:645px;left:0;width:500px;height:45px;z-index:1;cursor:default;" class="jsx-1828971989 text-box-component ">
+                                                <div data-transition-key="MottbHWQBx-slide-up-1.3-0-ease-out-false" data-node-id="MottbHWQBx" style="transition:all 1.3s ease-out 0s;transform:translateY(50px);opacity:0;width:100%;height:100%;">
+                                                    <div style="position:relative;width:100%;height:100%;background:linear-gradient(90deg, transparent 0%, rgba(140,140,140,0.3) 15%, rgba(140,140,140,0.45) 50%, rgba(140,140,140,0.3) 85%, transparent 100%);display:flex;align-items:center;justify-content:center;">
+                                                        <div disabled="" style="height:auto;width:100%;text-align:center;color:#ffffff;font-size:23px;font-weight:500;font-family:'Dancing Script';letter-spacing:1px;font-style:italic;line-height:normal;text-shadow:0 1px 2px rgba(0,0,0,0.2);pointer-events:none;" contenteditable="false">TRÂN TRỌNG KÍNH MỜI</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div style="width:300px;height:411px;min-width:200px;position:absolute;top:7834.68px;left:103.8px;transform:rotate(0deg);cursor:default;z-index:0" data-node-id="hONF6aOJQY" class="jsx-1768321534 rsvp-form-container">
@@ -4490,7 +4493,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div data-node-id="W0gKt_GlzP" style="position:absolute;top:705.086px;left:9.1px;width:480px;height:auto;z-index:0;cursor:default;transform:rotate(0deg)" class="jsx-1828971989 text-box-component ">
+                                            <div data-node-id="W0gKt_GlzP" style="position:absolute;top:705px;left:9.1px;width:480px;height:auto;z-index:0;cursor:default;transform:rotate(0deg)" class="jsx-1828971989 text-box-component ">
                                                 <div data-transition-key="W0gKt_GlzP-slide-up-1.3-0-ease-out-false" data-node-id="W0gKt_GlzP" style="transition:all 1.3s ease-out 0s;transform:translateY(50px);opacity:0;width:100%;height:100%">
                                                     <div style="position:relative;width:100%;height:100%;padding:0px 0px 0px 0px;border-radius:0px 
             0px 
@@ -5032,7 +5035,7 @@
                         var originalHeight = 8574; // hardcoded canvas height
                         parentDiv.style.height = (originalHeight * scale) + 'px';
                         parentDiv.style.width = screenWidth + 'px';
-                        parentDiv.style.overflow = 'visible';
+                        parentDiv.style.overflow = 'hidden';
                     }
 
                     // Make sure the scroll container can scroll
