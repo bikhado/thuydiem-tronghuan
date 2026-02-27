@@ -3499,11 +3499,91 @@
         .text-box-component div[contenteditable="false"] {
             overflow: visible !important;
         }
+
+        /* --- Global Loader Styles --- */
+        #global-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #fcfbfc;
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+        .pulsing-heart {
+            width: 50px;
+            height: 50px;
+            background-color: #baa58a;
+            position: relative;
+            transform: rotate(-45deg);
+            animation: heartPulse 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        .pulsing-heart::before,
+        .pulsing-heart::after {
+            content: "";
+            width: 50px;
+            height: 50px;
+            background-color: #baa58a;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .pulsing-heart::before {
+            top: -25px;
+            left: 0;
+        }
+        .pulsing-heart::after {
+            left: 25px;
+            top: 0;
+        }
+        .loading-text {
+            margin-top: 40px;
+            font-family: 'Quicksand', sans-serif;
+            color: #baa58a;
+            font-size: 14px;
+            letter-spacing: 2px;
+            font-weight: 600;
+            text-transform: uppercase;
+            animation: textFadePulse 1.2s infinite ease-in-out;
+        }
+        @keyframes heartPulse {
+            0% { transform: scale(0.8) rotate(-45deg); opacity: 0.8; }
+            50% { transform: scale(1.1) rotate(-45deg); opacity: 1; }
+            100% { transform: scale(0.8) rotate(-45deg); opacity: 0.8; }
+        }
+        @keyframes textFadePulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
     </style>
     <link rel="stylesheet" href="css/css2_1.css">
 </head>
 
 <body>
+    <!-- Global Loading Overlay -->
+    <div id="global-loader">
+        <div class="pulsing-heart"></div>
+        <div class="loading-text">Đang tải...</div>
+    </div>
+    <script>
+        // Hide loader when the page finishes loading all assets (images, fonts, etc.)
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                var loader = document.getElementById('global-loader');
+                if (loader) {
+                    loader.style.opacity = '0';
+                    loader.style.visibility = 'hidden';
+                    loader.style.pointerEvents = 'none';
+                }
+            }, 300); // Wait just a bit extra to ensure smooth visual transition
+        });
+    </script>
+    
     <link rel="preload" as="image" href="https://assets.cinelove.me/assets/audio-1.png">
     <link rel="preload" as="image" href="https://assets.cinelove.me/assets/plugins/calen_heart_1.png">
     <div id="__next">
