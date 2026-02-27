@@ -3489,14 +3489,9 @@
                 display: none;
             }
 
-            /* Scale the 500px-wide internal canvas to fit the phone screen */
+            /* Scale will be applied via JavaScript */
             .styles_customScroll__X5r6w {
                 overflow-x: hidden !important;
-            }
-            #root-page-container {
-                transform-origin: top left;
-                transform: scale(calc(100vw / 500));
-                width: 500px !important;
             }
         }
 
@@ -4988,6 +4983,48 @@
                 }, { passive: false });
             }
         });
+    </script>
+    <script>
+        // Mobile responsive scaling: scale the 500px canvas to fit smaller screens
+        (function() {
+            function applyMobileScale() {
+                var rootPage = document.getElementById('root-page-container');
+                if (!rootPage) return;
+
+                var screenWidth = window.innerWidth;
+                var canvasWidth = 500;
+
+                if (screenWidth < canvasWidth) {
+                    var scale = screenWidth / canvasWidth;
+                    rootPage.style.transformOrigin = 'top left';
+                    rootPage.style.transform = 'scale(' + scale + ')';
+                    rootPage.style.width = canvasWidth + 'px';
+
+                    // Adjust the scroll container height to account for scaled content
+                    var scrollWrapper = document.querySelector('.styles_customScroll__X5r6w');
+                    if (scrollWrapper) {
+                        var originalHeight = rootPage.offsetHeight || 8574;
+                        scrollWrapper.style.height = (originalHeight * scale) + 'px';
+                    }
+                } else {
+                    rootPage.style.transform = '';
+                    rootPage.style.transformOrigin = '';
+                }
+            }
+
+            // Apply on load
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', applyMobileScale);
+            } else {
+                applyMobileScale();
+            }
+
+            // Re-apply on resize / orientation change
+            window.addEventListener('resize', applyMobileScale);
+            window.addEventListener('orientationchange', function() {
+                setTimeout(applyMobileScale, 200);
+            });
+        })();
     </script>
     <script src="interactive.js"></script>
 </body>
