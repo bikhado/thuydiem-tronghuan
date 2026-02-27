@@ -5024,22 +5024,28 @@
 
                 if (screenWidth < canvasWidth) {
                     var scale = screenWidth / canvasWidth;
+                    var originalHeight = 8574; // hardcoded canvas height
+                    
+                    // Inject a wrapper around rootPage to clip the unscaled bounding box
+                    var scaleWrapper = document.getElementById('mobile-scale-wrapper');
+                    if (!scaleWrapper) {
+                        scaleWrapper = document.createElement('div');
+                        scaleWrapper.id = 'mobile-scale-wrapper';
+                        rootPage.parentNode.insertBefore(scaleWrapper, rootPage);
+                        scaleWrapper.appendChild(rootPage);
+                    }
+
                     rootPage.style.transformOrigin = 'top left';
                     rootPage.style.transform = 'scale(' + scale + ')';
                     rootPage.style.width = canvasWidth + 'px';
 
-                    // The parent wrapper that holds rootPage needs a fixed height 
-                    // matching the scaled visual height so scrolling works
-                    var parentDiv = rootPage.parentElement; // the div wrapping root-page-container
-                    if (parentDiv) {
-                        var originalHeight = 8574; // hardcoded canvas height
-                        parentDiv.style.height = (originalHeight * scale) + 'px';
-                        parentDiv.style.width = screenWidth + 'px';
-                        parentDiv.style.overflow = 'hidden';
-                    }
+                    // The wrapper takes the exact scaled dimensions
+                    scaleWrapper.style.width = screenWidth + 'px';
+                    scaleWrapper.style.height = (originalHeight * scale) + 'px';
+                    scaleWrapper.style.overflow = 'hidden';
 
-                    // Make sure the scroll container can scroll
-                    var scrollWrapper = document.querySelector('.styles_customScroll__X5r6w');
+                    // Ensure the main scroll container handles the scrolling natively
+                    var scrollWrapper = scaleWrapper.parentElement;
                     if (scrollWrapper) {
                         scrollWrapper.style.height = '100%';
                         scrollWrapper.style.overflowY = 'auto';
@@ -5049,6 +5055,12 @@
                 } else {
                     rootPage.style.transform = '';
                     rootPage.style.transformOrigin = '';
+                    var scaleWrapper = document.getElementById('mobile-scale-wrapper');
+                    if (scaleWrapper) {
+                        scaleWrapper.style.width = '';
+                        scaleWrapper.style.height = '';
+                        scaleWrapper.style.overflow = '';
+                    }
                 }
             }
 
