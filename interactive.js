@@ -219,6 +219,34 @@ document.addEventListener('DOMContentLoaded', () => {
             50% { transform: scale(1.3); }
             100% { transform: scale(1); }
         }
+        .gift-tooltip {
+            position: absolute;
+            bottom: 56px;
+            right: -5px;
+            background: #ff4d6d;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            animation: bounceTooltip 1.5s infinite;
+            pointer-events: none;
+        }
+        .gift-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 15px;
+            border-width: 6px 6px 0;
+            border-style: solid;
+            border-color: #ff4d6d transparent transparent transparent;
+        }
+        @keyframes bounceTooltip {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
     `;
     document.head.appendChild(style);
 
@@ -247,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const btnGift = document.createElement('button');
     btnGift.className = 'action-round-btn';
-    btnGift.innerHTML = '🎁';
+    btnGift.innerHTML = '🎁<div class="gift-tooltip">Ting ting 👇</div>';
 
     const btnLike = document.createElement('button');
     btnLike.className = 'action-round-btn';
@@ -291,9 +319,10 @@ document.addEventListener('DOMContentLoaded', () => {
             <h3>Gửi Quà Tặng</h3>
             <p style="color:#5d4b46; font-size:14px; margin-bottom:15px; line-height:1.5;">Cô dâu - Chú rể xin chân thành cảm ơn những tình cảm, món quà và lời chúc từ phía mọi người!</p>
             <div style="background:#fcfbfc; padding:20px; border-radius:12px; margin-bottom:20px; border: 1px solid #e8e0d5;">
-                <p style="margin:5px 0"><strong>Ngân hàng:</strong> TPBank (Tiên Phong)</p>
-                <p style="margin:5px 0; font-size:18px; color:#baa58a">STK: <strong>123456789</strong></p>
-                <p style="margin:5px 0"><strong>Tên:</strong> TRONG HUAN / THUY DIEM</p>
+                <img src="images/ngan-hang.png" alt="QR Code Ngân Hàng" style="width:100%; max-width:260px; margin-bottom:15px; border-radius:8px;">
+                <p style="margin:5px 0"><strong>Ngân hàng:</strong> VietinBank</p>
+                <p style="margin:5px 0; font-size:22px; color:#baa58a">STK: <strong>100872738649</strong></p>
+                <p style="margin:5px 0"><strong>Tên:</strong> PHẠM THỊ THUÝ DIỄM</p>
             </div>
             <button class="btn-cancel" style="width:100%" id="btn-close-gift">Đóng</button>
         </div>
