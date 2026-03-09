@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const btnGift = document.createElement('button');
     btnGift.className = 'action-round-btn';
-    btnGift.innerHTML = '🎁<div class="gift-tooltip">Ting ting 👇</div>';
+    btnGift.innerHTML = '🎁<div class="gift-tooltip">Hộp quà mừng cưới 👇</div>';
 
     const btnLike = document.createElement('button');
     btnLike.className = 'action-round-btn';
